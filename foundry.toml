@@ -2,19 +2,35 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+optimizer = true
+optimizer_runs = 200
+via-ir=true
+# forge script script/DeployDiamond.s.sol --rpc-url lisk_testnet --account compPrivate --broadcast --verify
 
 # Sepolia Testnet Configuration
+# [rpc_endpoints]
+# # sepolia = "https://eth-sepolia.g.alchemy.com/v2/<api>"
+# # lisk-testnet = "https://rpc.sepolia-api.lisk.com"
+
+# # forge verify-contract   --rpc-url https://rpc.sepolia-api.lisk.com   --verifier blockscout   --verifier-url 'https://sepolia-blockscout.lisk.com/api/'    0x22Acda4103f0EFf4d0202E412ecf970bc6BE53a3 src/facets/DiamondLoupeFacet.sol:DiamondLoupeFacet 
+
+
+
+# [etherscan]
+# lisk-testnet = { key = "123", chain=4202, url="https://sepolia-blockscout.lisk.com/api/" }
+# [profile.EtherscanConfig]
+# etherscan.chain="4202"
+
 [rpc_endpoints]
-# sepolia = "https://eth-sepolia.g.alchemy.com/v2/<api>"
-# lisk-testnet = "https://rpc.sepolia-api.lisk.com"
+lisk_testnet = "https://rpc.sepolia-api.lisk.com"
 
-# forge verify-contract   --rpc-url https://rpc.sepolia-api.lisk.com   --verifier blockscout   --verifier-url 'https://sepolia-blockscout.lisk.com/api/'    0x22Acda4103f0EFf4d0202E412ecf970bc6BE53a3 src/facets/DiamondLoupeFacet.sol:DiamondLoupeFacet 
-
-
-
+# The verifier expects an [etherscan] entry to map chain IDs.
 [etherscan]
-lisk-testnet = { key = "123", chain=4202, url="https://sepolia-blockscout.lisk.com/api/" }
-[profile.EtherscanConfig]
-etherscan.chain="4202"
+lisk_testnet = { key = "123", chain_id = 4202,  url="https://sepolia-blockscout.lisk.com/api/" }
+
+# Add the blockscout verifier configuration
+[profile.blockscout]
+lisk_testnet = { url = "https://sepolia-blockscout.lisk.com/api" }
+
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

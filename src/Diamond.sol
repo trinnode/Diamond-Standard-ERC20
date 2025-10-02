@@ -17,6 +17,7 @@ contract Diamond {
         // Initialize token metadata
         ds.name = "TrinNODE";
         ds.symbol = "tNODE";
+        // ds.totalSupply = 100_000_000 * 10**18; // 100 million tokens with 18 decimals
 
         // Note: Facets will be added via diamondCut after deployment
         // This allows for proper facet management and upgradeability
@@ -90,7 +91,7 @@ contract Diamond {
         diamondLoupeSelectors[3] = bytes4(keccak256("facetAddress(bytes4)"));
         diamondLoupeSelectors[4] = bytes4(keccak256("supportsInterface(bytes4)"));
 
-        bytes4[] memory erc20Selectors = new bytes4[](12);
+        bytes4[] memory erc20Selectors = new bytes4[](9);
         erc20Selectors[0] = bytes4(keccak256("name()"));
         erc20Selectors[1] = bytes4(keccak256("symbol()"));
         erc20Selectors[2] = bytes4(keccak256("decimals()"));
@@ -100,9 +101,6 @@ contract Diamond {
         erc20Selectors[6] = bytes4(keccak256("approve(address,uint256)"));
         erc20Selectors[7] = bytes4(keccak256("transfer(address,uint256)"));
         erc20Selectors[8] = bytes4(keccak256("transferFrom(address,address,uint256)"));
-        erc20Selectors[9] = bytes4(keccak256("mint(address,uint256)"));
-        erc20Selectors[10] = bytes4(keccak256("mintToSelf(uint256)"));
-        erc20Selectors[11] = bytes4(keccak256("batchMint(address[],uint256[])"));
 
         DiamondStorage.DiamondState storage ds = DiamondStorage.diamondStorage();
 

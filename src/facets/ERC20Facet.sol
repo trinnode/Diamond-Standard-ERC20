@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "../interfaces/IERC20Facet.sol";
+// import "../interfaces/IERC20Facet.sol";
+
+import "../../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import "../../lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "../libraries/DiamondStorage.sol";
-  
-contract ERC20Facet is IERC20Facet {
-    /// @notice Get token name 
+
+contract ERC20Facet is IERC20, IERC20Metadata {
+    /// @notice Get token name
     function name() external view returns (string memory) {
         DiamondStorage.DiamondState storage ds = DiamondStorage.diamondStorage();
         return ds.name;
@@ -73,30 +76,7 @@ contract ERC20Facet is IERC20Facet {
         return true;
     }
 
-    /// @notice Mint tokens to specified address (anyone can call)
-    /// @param to Address to mint tokens to
-    /// @param amount Amount of tokens to mint
-    function mint(address to, uint256 amount) external {
-        require(to != address(0), "Cannot mint to zero address");
-        _mint(to, amount);
-    }
 
-    /// @notice Mint tokens to caller's address (anyone can call)
-    /// @param amount Amount of tokens to mint
-    function mintToSelf(uint256 amount) external {
-        _mint(msg.sender, amount);
-    }
-
-    /// @notice Batch mint tokens to multiple addresses (anyone can call)
-    /// @param recipients Array of addresses to mint to
-    /// @param amounts Array of amounts to mint (must match recipients length)
-    function batchMint(address[] calldata recipients, uint256[] calldata amounts) external {
-        require(recipients.length == amounts.length, "Arrays length mismatch");
-        for (uint256 i = 0; i < recipients.length; i++) {
-            require(recipients[i] != address(0), "Cannot mint to zero address");
-            _mint(recipients[i], amounts[i]);
-        }
-    }
 
     /// @notice Internal transfer function
     function _transfer(address from, address to, uint256 amount) internal {

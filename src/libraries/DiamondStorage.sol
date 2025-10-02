@@ -21,6 +21,17 @@ library DiamondStorage {
         mapping(address => mapping(address => uint256)) allowance;
         // owner of the diamond
         address contractOwner;
+        // Swap functionality - ETH balances locked for tokens
+        mapping(address => uint256) ethBalance;
+        uint256 totalEthLocked;
+        // MultiSig functionality
+        mapping(bytes32 => bool) executedTransactions;
+        mapping(bytes32 => uint256) transactionApprovals;
+        mapping(bytes32 => mapping(address => bool)) hasApproved;
+        address[] multiSigOwners;
+        uint256 requiredApprovals;
+        // ERC20Metadata - SVG token URI
+        string tokenSVG;
     }
 
     // Storage position for the diamond state

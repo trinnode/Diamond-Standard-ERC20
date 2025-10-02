@@ -79,9 +79,7 @@ contract DeployDiamond is Script {
         selectors[6] = bytes4(keccak256("approve(address,uint256)"));
         selectors[7] = bytes4(keccak256("transfer(address,uint256)"));
         selectors[8] = bytes4(keccak256("transferFrom(address,address,uint256)"));
-        selectors[9] = IERC20Facet.mint.selector;
-        selectors[10] = IERC20Facet.mintToSelf.selector;
-        selectors[11] = IERC20Facet.batchMint.selector;
+        // Mint functions removed - minting now only available through SwapFacet
         return selectors;
     }
 }
